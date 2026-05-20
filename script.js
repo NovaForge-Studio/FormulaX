@@ -164,6 +164,21 @@ function setExample(expr) {
     document.getElementById('equation').value = expr;
 }
 
+function insertSymbol(symbol) {
+    const input = document.getElementById('equation');
+    const start = input.selectionStart;
+    const end = input.selectionEnd;
+    const text = input.value;
+    
+    const newText = text.substring(0, start) + symbol + text.substring(end);
+    input.value = newText;
+    
+    // Mover el cursor después del símbolo insertado
+    const newCursorPos = start + symbol.length;
+    input.setSelectionRange(newCursorPos, newCursorPos);
+    input.focus();
+}
+
 // Agregar ecuación al presionar Enter
 document.getElementById('equation').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {

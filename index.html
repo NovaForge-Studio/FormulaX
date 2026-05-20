@@ -33,6 +33,55 @@
                                 value="x^2"
                             >
                         </div>
+                        
+                        <!-- Símbolos Matemáticos -->
+                        <div class="space-y-3">
+                            <h3 class="text-sm font-medium text-slate-400">Símbolos y Funciones</h3>
+                            
+                            <!-- Funciones Trigonométricas -->
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="insertSymbol('sin(')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 rounded text-sm transition-colors">sin</button>
+                                <button onclick="insertSymbol('cos(')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 rounded text-sm transition-colors">cos</button>
+                                <button onclick="insertSymbol('tan(')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 rounded text-sm transition-colors">tan</button>
+                                <button onclick="insertSymbol('asin(')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 rounded text-sm transition-colors">asin</button>
+                                <button onclick="insertSymbol('acos(')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 rounded text-sm transition-colors">acos</button>
+                                <button onclick="insertSymbol('atan(')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 rounded text-sm transition-colors">atan</button>
+                            </div>
+                            
+                            <!-- Raíces y Potencias -->
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="insertSymbol('sqrt(')" class="px-3 py-1.5 bg-purple-600 hover:bg-purple-700 rounded text-sm transition-colors">√</button>
+                                <button onclick="insertSymbol('^')" class="px-3 py-1.5 bg-purple-600 hover:bg-purple-700 rounded text-sm transition-colors">x^y</button>
+                                <button onclick="insertSymbol('^2')" class="px-3 py-1.5 bg-purple-600 hover:bg-purple-700 rounded text-sm transition-colors">x²</button>
+                                <button onclick="insertSymbol('^3')" class="px-3 py-1.5 bg-purple-600 hover:bg-purple-700 rounded text-sm transition-colors">x³</button>
+                                <button onclick="insertSymbol('abs(')" class="px-3 py-1.5 bg-purple-600 hover:bg-purple-700 rounded text-sm transition-colors">|x|</button>
+                            </div>
+                            
+                            <!-- Constantes -->
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="insertSymbol('pi')" class="px-3 py-1.5 bg-pink-600 hover:bg-pink-700 rounded text-sm transition-colors">π</button>
+                                <button onclick="insertSymbol('e')" class="px-3 py-1.5 bg-pink-600 hover:bg-pink-700 rounded text-sm transition-colors">e</button>
+                            </div>
+                            
+                            <!-- Funciones Exponenciales y Logarítmicas -->
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="insertSymbol('exp(')" class="px-3 py-1.5 bg-green-600 hover:bg-green-700 rounded text-sm transition-colors">e^x</button>
+                                <button onclick="insertSymbol('log(')" class="px-3 py-1.5 bg-green-600 hover:bg-green-700 rounded text-sm transition-colors">ln</button>
+                                <button onclick="insertSymbol('log10(')" class="px-3 py-1.5 bg-green-600 hover:bg-green-700 rounded text-sm transition-colors">log</button>
+                            </div>
+                            
+                            <!-- Operadores Básicos -->
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="insertSymbol('+')" class="px-3 py-1.5 bg-slate-600 hover:bg-slate-500 rounded text-sm transition-colors">+</button>
+                                <button onclick="insertSymbol('-')" class="px-3 py-1.5 bg-slate-600 hover:bg-slate-500 rounded text-sm transition-colors">−</button>
+                                <button onclick="insertSymbol('*')" class="px-3 py-1.5 bg-slate-600 hover:bg-slate-500 rounded text-sm transition-colors">×</button>
+                                <button onclick="insertSymbol('/')" class="px-3 py-1.5 bg-slate-600 hover:bg-slate-500 rounded text-sm transition-colors">÷</button>
+                                <button onclick="insertSymbol('(')" class="px-3 py-1.5 bg-slate-600 hover:bg-slate-500 rounded text-sm transition-colors">(</button>
+                                <button onclick="insertSymbol(')')" class="px-3 py-1.5 bg-slate-600 hover:bg-slate-500 rounded text-sm transition-colors">)</button>
+                                <button onclick="insertSymbol('x')" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 rounded text-sm transition-colors font-bold">x</button>
+                            </div>
+                        </div>
+                        
                         <button 
                             onclick="addEquation()"
                             class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors"
