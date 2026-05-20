@@ -1,11 +1,129 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Graficador de Ecuaciones</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    
+<body class="bg-gradient-to-br from-slate-900 to-slate-800 min-h-screen text-white">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold text-center mb-2 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+            Graficador de Ecuaciones
+        </h1>
+        <p class="text-center text-slate-400 mb-8">Ingresa ecuaciones matemáticas y visualízalas en tiempo real</p>
+        
+        <div class="grid lg:grid-cols-3 gap-6">
+            <!-- Panel de Control -->
+            <div class="lg:col-span-1 space-y-6">
+                <!-- Input de Ecuación -->
+                <div class="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700">
+                    <h2 class="text-xl font-semibold mb-4 text-blue-400">Ecuación</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm text-slate-300 mb-2">y = f(x)</label>
+                            <input 
+                                type="text" 
+                                id="equation" 
+                                placeholder="Ej: x^2, sin(x), 2*x + 1"
+                                class="equation-input w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-slate-400 transition-all"
+                                value="x^2"
+                            >
+                        </div>
+                        <button 
+                            onclick="addEquation()"
+                            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors"
+                        >
+                            + Agregar Ecuación
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Lista de Ecuaciones -->
+                <div class="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700">
+                    <h2 class="text-xl font-semibold mb-4 text-purple-400">Ecuaciones Activas</h2>
+                    <div id="equationsList" class="space-y-3">
+                        <!-- Las ecuaciones se agregarán aquí -->
+                    </div>
+                </div>
+
+                <!-- Configuración de Ejes -->
+                <div class="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700">
+                    <h2 class="text-xl font-semibold mb-4 text-green-400">Rango de Ejes</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm text-slate-300 mb-2">X Mín</label>
+                            <input 
+                                type="number" 
+                                id="xMin" 
+                                value="-10"
+                                class="w-full bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-white"
+                            >
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-300 mb-2">X Máx</label>
+                            <input 
+                                type="number" 
+                                id="xMax" 
+                                value="10"
+                                class="w-full bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-white"
+                            >
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-300 mb-2">Y Mín</label>
+                            <input 
+                                type="number" 
+                                id="yMin" 
+                                value="-10"
+                                class="w-full bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-white"
+                            >
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-300 mb-2">Y Máx</label>
+                            <input 
+                                type="number" 
+                                id="yMax" 
+                                value="10"
+                                class="w-full bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-white"
+                            >
+                        </div>
+                    </div>
+                    <button 
+                        onclick="updateGraph()"
+                        class="w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors"
+                    >
+                        Actualizar Gráfico
+                    </button>
+                </div>
+
+                <!-- Sugerencias -->
+                <div class="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700">
+                    <h2 class="text-xl font-semibold mb-4 text-yellow-400">Ejemplos</h2>
+                    <div class="space-y-2 text-sm">
+                        <button onclick="setExample('x^2')" class="w-full text-left bg-slate-700 hover:bg-slate-600 px-3 py-2 rounded transition-colors">x^2 (parábola)</button>
+                        <button onclick="setExample('sin(x)')" class="w-full text-left bg-slate-700 hover:bg-slate-600 px-3 py-2 rounded transition-colors">sin(x) (seno)</button>
+                        <button onclick="setExample('cos(x)')" class="w-full text-left bg-slate-700 hover:bg-slate-600 px-3 py-2 rounded transition-colors">cos(x) (coseno)</button>
+                        <button onclick="setExample('2*x + 1')" class="w-full text-left bg-slate-700 hover:bg-slate-600 px-3 py-2 rounded transition-colors">2*x + 1 (lineal)</button>
+                        <button onclick="setExample('x^3 - 3*x')" class="w-full text-left bg-slate-700 hover:bg-slate-600 px-3 py-2 rounded transition-colors">x^3 - 3*x (cúbica)</button>
+                        <button onclick="setExample('sqrt(x)')" class="w-full text-left bg-slate-700 hover:bg-slate-600 px-3 py-2 rounded transition-colors">sqrt(x) (raíz)</button>
+                        <button onclick="setExample('exp(x)')" class="w-full text-left bg-slate-700 hover:bg-slate-600 px-3 py-2 rounded transition-colors">exp(x) (exponencial)</button>
+                        <button onclick="setExample('log(x)')" class="w-full text-left bg-slate-700 hover:bg-slate-600 px-3 py-2 rounded transition-colors">log(x) (logaritmo)</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gráfico -->
+            <div class="lg:col-span-2">
+                <div class="bg-slate-800/50 backdrop-blur rounded-xl p-6 border border-slate-700 h-full">
+                    <div id="graph" class="w-full" style="height: 600px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
